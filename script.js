@@ -634,7 +634,7 @@ async function sendToGoogleSheets(contactInfo) {
     console.log('Payload envoyé:', payload); // Pour debug
     
     try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbx0i-X3MVQMKDfnWR3fi5k-RZdrTynEUgBnZNOlkuu0_-m9WybuqUFWaMeR4pXi22B74Q/exec', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwBVO2LjWUz6BIFrmWpAHJ-K1C9WN2snrURwew-HXnG0YjTPj81q4AcEv7TCpqj4U7ERg/exec', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
