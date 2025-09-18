@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Calculator - Transformez votre entreprise avec l'IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles..css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-bg"></div>
+        <div class="header-decorations">
+            <div class="decoration decoration-1"></div>
+            <div class="decoration decoration-2"></div>
+            <div class="decoration decoration-3"></div>
+        </div>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-icon">
+                    <div class="bot-icon">🤖</div>
+                </div>
+                <h1 class="header-title">IA Calculator</h1>
+                <p class="header-subtitle">
+                    Transformez votre entreprise avec l'Intelligence Artificielle
+                    <br>
+                    <span class="header-description">Calculez vos gains de productivité en quelques clics</span>
+                </p>
+                <div class="header-badges">
+                    <div class="badge">
+                        <span class="badge-icon">⏱️</span>
+                        <span>Analyse en 5 min</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">📈</span>
+                        <span>ROI Calculé</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">✨</span>
+                        <span>Rapport PDF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Step Indicator -->
+            <div class="step-indicator" id="stepIndicator">
+                <div class="step active" data-step="0">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Informations entreprise</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="1">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Sélection des tâches</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="2">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Résultats et recommandations</div>
+                </div>
+            </div>
+
+            <!-- Step 1: Company Form -->
+            <div class="step-content active" id="step0">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Analysons votre entreprise</h2>
+                        <p>Quelques informations pour personnaliser votre analyse</p>
+                    </div>
+                    <form id="companyForm" class="form">
+                        <div class="form-group">
+                            <label for="sector">
+                                <span class="label-icon">🏢</span>
+                                Secteur d'activité
+                            </label>
+                            <select id="sector" required>
+                                <option value="">Sélectionnez votre secteur</option>
+                                <option value="Commerce de détail">Commerce de détail</option>
+                                <option value="Services aux entreprises">Services aux entreprises</option>
+                                <option value="Restauration">Restauration</option>
+                                <option value="Artisanat">Artisanat</option>
+                                <option value="Santé & Bien-être">Santé & Bien-être</option>
+                                <option value="Immobilier">Immobilier</option>
+                                <option value="Finance & Assurance">Finance & Assurance</option>
+                                <option value="Technologie">Technologie</option>
+                                <option value="Éducation & Formation">Éducation & Formation</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="employees">
+                                <span class="label-icon">👥</span>
+                                Nombre d'employés (vous inclus)
+                            </label>
+                            <input type="number" id="employees" min="1" max="10" value="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hourlyRate">
+                                <span class="label-icon">💰</span>
+                                Taux horaire moyen (€)
+                            </label>
+                            <input type="number" id="hourlyRate" min="10" max="200" value="25" required>
+                            <small>Coût horaire moyen de votre équipe (charges comprises)</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Analyser mes tâches
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Step 2: Task Selection -->
+            <div class="step-content" id="step1">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Sélectionnez vos tâches</h2>
+                        <p>Choisissez les tâches que vous réalisez actuellement</p>
+                    </div>
+                    <div class="task-selector">
+                        <div class="categories">
+                            <h3>Catégories</h3>
+                            <div id="categoryList" class="category-list"></div>
+                        </div>
+                        <div class="tasks">
+                            <div id="taskList" class="task-list">
+                                <div class="empty-state">
+                                    <div class="empty-icon">⏰</div>
+                                    <p>Sélectionnez une catégorie pour voir les tâches</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="previousStep()">
+                            <span class="btn-icon">←</span>
+                            Précédent
+                        </button>
+                        <button type="button" class="btn btn-primary" id="nextToResults" onclick="nextStep()" disabled>
+                            Voir les résultats
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Results -->
+            <div class="step-content" id="step2">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Votre potentiel d'automatisation IA</h2>
+                        <p id="companyProfile">Analyse personnalisée</p>
+                    </div>
+                    <div class="kpi-grid" id="kpiGrid"></div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid" id="chartsContainer">
+                    <div class="chart-card" data-chart="time-comparison">
+                        <h3>Temps avant/après automatisation</h3>
+                        <canvas id="timeChart"></canvas>
+                    </div>
+                    <div class="chart-card" data-chart="savings-breakdown">
+                        <h3>Répartition des économies</h3>
+                        <canvas id="savingsChart"></canvas>
+                    </div>
+                    <div class="chart-card" data-chart="roi-projection">
+                        <h3>Projection ROI sur 12 mois</h3>
+                        <canvas id="roiChart"></canvas>
+                    </div>
+                    <div class="chart-card" data-chart="category-radar">
+                        <h3>Potentiel par catégorie</h3>
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-card">
+                    <div class="action-header">
+                        <h3>Prêt à automatiser ?</h3>
+                        <p>Exportez votre rapport détaillé et découvrez votre plan d'action personnalisé</p>
+                    </div>
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-primary" onclick="showContactForm()">
+                            <span class="btn-icon">📥</span>
+                            Exporter le rapport PDF
+                        </button>
+                        <button type="button" class="btn btn-success">
+                            <span class="btn-icon">⚡</span>
+                            Découvrir les solutions IA
+                        </button>
+                    </div>
+                </div>
+
+                <div class="step-navigation">
+                    <button type="button" class="btn btn-secondary" onclick="previousStep()">
+                        <span class="btn-icon">←</span>
+                        Modifier les tâches
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Contact Form Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Télécharger votre rapport</h3>
+                <button type="button" class="modal-close" onclick="hideContactForm()">×</button>
+            </div>
+            <p>Recevez votre analyse personnalisée et découvrez comment l'IA peut transformer votre entreprise.</p>
+            <form id="contactForm" class="form">
+                <div class="form-group">
+                    <label for="firstName">
+                        <span class="label-icon">👤</span>
+                        Prénom
+                    </label>
+                    <input type="text" id="firstName" placeholder="Votre prénom" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">
+                        <span class="label-icon">🧑</span>
+                        Nom
+                    </label>
+                    <input type="text" id="lastName" placeholder="Votre nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="companyName">
+                        <span class="label-icon">🏢</span>
+                        Entreprise
+                    </label>
+                    <input type="text" id="companyName" placeholder="Votre entreprise" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">
+                        <span class="label-icon">📧</span>
+                        Email professionnel
+                    </label>
+                    <input type="email" id="email" placeholder="votre.email@entreprise.com" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideContactForm()">Annuler</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-icon">📥</span>
+                        Télécharger
+                    </button>
+                </div>
+            </form>
+            <p class="privacy-note">Vos données sont sécurisées et ne seront jamais partagées avec des tiers.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 IA Calculator. Transformez votre entreprise avec l'Intelligence Artificielle.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
